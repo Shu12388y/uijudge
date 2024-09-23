@@ -25,7 +25,7 @@ export class AuthController {
         res.json(Response("server Error", 400));
         return;
       }
-      const findUser = Auth.findOne({ username: username, email: email });
+      const findUser = await Auth.findOne({ username: username, email: email });
       if (findUser) {
         res.json(Response("user already exist", 400));
         return;
