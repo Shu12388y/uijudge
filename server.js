@@ -6,8 +6,11 @@ dotenv.config({
 
 
 import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import { Response } from "./util/Response.js";
 import { AuthRouter } from "./Auth/Router/Auth.Router.js";
+import helmet from "helmet";
 
 
 
@@ -17,6 +20,11 @@ export const app =  express();
 
 // configure middleware
 app.use(express.json());
+app.use(cookieParser());
+app.use(helmet())
+app.use(cors())
+
+
 
 
 
