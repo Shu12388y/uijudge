@@ -3,6 +3,8 @@ import { Response } from "../../util/Response.js";
 import bcrypt from "bcrypt";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
+import { sendMailer } from "../service/email.js";
+
 
 export class AuthController {
   // create new users
@@ -37,7 +39,11 @@ export class AuthController {
         password: hashedPassword,
       });
 
-      await createNewUser.save();
+      const userCreated = await createNewUser.save();
+      
+      if(userCreated){
+        await sendMailer(email);
+      }
 
       res.json(Response("User created", 201));
       return;
